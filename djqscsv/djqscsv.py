@@ -138,8 +138,8 @@ def _iter_csv(queryset, file_obj, **kwargs):
     if use_verbose_names:
         name_map.update(
             {field.name: field.verbose_name
-                 for field in queryset.model._meta.fields
-                 if field.name in field_names})
+                for field in queryset.model._meta.fields
+                if field.name in field_names})
 
     # merge the custom field headers into the verbose/raw defaults, if provided
     merged_header_map = name_map.copy()

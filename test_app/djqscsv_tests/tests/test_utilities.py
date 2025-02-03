@@ -114,4 +114,4 @@ class GenerateFilenameTests(TestCase):
                          'person_export.csv')
 
         self.assertRegex(djqscsv.generate_filename(qs, True),
-                                 r'person_export_[0-9]{8}.csv')
+                         r'person_export_[0-9]{8}.csv')

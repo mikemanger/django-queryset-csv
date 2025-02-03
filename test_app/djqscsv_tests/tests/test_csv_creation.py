@@ -1,8 +1,6 @@
 from django.db.models import Count
 from django.test import TestCase
 
-from django import VERSION as DJANGO_VERSION
-
 import unicodecsv as csv
 from io import BytesIO
 
@@ -11,14 +9,7 @@ from djqscsv_tests.context import djqscsv
 from djqscsv_tests.context import SELECT, EXCLUDE, AS, CONSTANT
 
 from djqscsv_tests.util import create_people_and_get_queryset
-
-try:
-    from itertools import zip_longest
-except ImportError:
-    try:
-        from itertools import izip_longest as zip_longest
-    except ImportError:
-        from itertools import zip_longest
+from itertools import zip_longest
 
 
 class CSVTestCase(TestCase):
@@ -62,13 +53,8 @@ class CSVTestCase(TestCase):
     def assertEmptyQuerySetMatches(self, expected_data, **kwargs):
         qs = self.qs.none()
         obj = BytesIO()
-        if DJANGO_VERSION[:2] == (1, 5):
-            with self.assertRaises(djqscsv.CSVException):
-                djqscsv.write_csv(qs, obj)
-        else:
-            djqscsv.write_csv(qs, obj,
-                              **kwargs)
-            self.assertEqual(obj.getvalue(), expected_data)
+        djqscsv.write_csv(qs, obj, **kwargs)
+        self.assertEqual(obj.getvalue(), expected_data)
 
     # the csv data that is returned by the most inclusive query under test.
     # use this data structure to build smaller data sets
@@ -306,7 +292,7 @@ class RenderToCSVResponseTests(CSVTestCase):
             self.FULL_PERSON_CSV_NO_VERBOSE)
 
         self.assertRegex(response['Content-Disposition'],
-                                 r'attachment; filename=person_export.csv;')
+                         r'attachment; filename=person_export.csv;')
 
     def test_render_to_csv_response(self):
         response = djqscsv.render_to_csv_response(self.qs,
