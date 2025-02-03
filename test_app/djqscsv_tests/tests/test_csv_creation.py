@@ -13,7 +13,7 @@ from djqscsv_tests.context import SELECT, EXCLUDE, AS, CONSTANT
 from djqscsv_tests.util import create_people_and_get_queryset
 
 try:
-    from six.moves import zip_longest
+    from itertools import zip_longest
 except ImportError:
     try:
         from itertools import izip_longest as zip_longest
@@ -35,7 +35,7 @@ class CSVTestCase(TestCase):
         for csv_row, expected_row in test_pairs:
             if is_first:
                 # add the BOM to the data
-                expected_row = ([u'\ufeff' + expected_row[0]] +
+                expected_row = (['\ufeff' + expected_row[0]] +
                                 expected_row[1:])
                 is_first = False
             iteration_happened = True
@@ -293,7 +293,7 @@ class RenderToCSVResponseTests(CSVTestCase):
                                                   filename=filename,
                                                   append_datestamp=True)
 
-        self.assertRegexpMatches(
+        self.assertRegex(
             response['Content-Disposition'],
             r'attachment; filename=the_reach_[0-9]{8}.csv;')
 
@@ -305,7 +305,7 @@ class RenderToCSVResponseTests(CSVTestCase):
             b''.join(response.streaming_content).splitlines(),
             self.FULL_PERSON_CSV_NO_VERBOSE)
 
-        self.assertRegexpMatches(response['Content-Disposition'],
+        self.assertRegex(response['Content-Disposition'],
                                  r'attachment; filename=person_export.csv;')
 
     def test_render_to_csv_response(self):

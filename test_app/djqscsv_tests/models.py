@@ -1,6 +1,4 @@
-from six import python_2_unicode_compatible
 from django.db import models
-
 from django.utils.translation import ugettext as _
 from datetime import datetime
 
@@ -11,7 +9,6 @@ class Activity(models.Model):
     name = models.CharField(max_length=50, verbose_name="Name of Activity")
 
 
-@python_2_unicode_compatible
 class Person(models.Model):
     name = models.CharField(max_length=50, verbose_name=_("Person's name"))
     address = models.CharField(max_length=255)
