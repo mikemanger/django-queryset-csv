@@ -1,5 +1,5 @@
 .. image:: https://github.com/azavea/django-queryset-csv/actions/workflows/ci.yml/badge.svg
-   :target:https://github.com/azavea/django-queryset-csv/actions/workflows/ci.yml
+   :target: https://github.com/azavea/django-queryset-csv/actions/workflows/ci.yml
 
 .. image:: https://coveralls.io/repos/azavea/django-queryset-csv/badge.svg?branch=master&service=github
    :target: https://coveralls.io/r/azavea/django-queryset-csv/
