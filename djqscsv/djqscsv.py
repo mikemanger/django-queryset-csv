@@ -106,12 +106,7 @@ def _iter_csv(queryset, file_obj, **kwargs):
         else:
             values_qs = queryset.values()
 
-    try:
-        # Django 1.9+
-        field_names = list(values_qs.query.values_select)
-    except AttributeError:
-        # Django 1.8
-        field_names = values_qs.field_names
+    field_names = list(values_qs.query.values_select)
 
     extra_columns = list(values_qs.query.extra_select)
     if extra_columns:
